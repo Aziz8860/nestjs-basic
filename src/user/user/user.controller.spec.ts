@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import httpMock from 'node-mocks-http';
+import { UserService } from './user.service';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -9,15 +10,15 @@ describe('UserController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       imports: [], // masukin module lain di sini
-      providers: [], // masukin provider lain di sini
+      providers: [UserService], // masukin provider lain di sini
     }).compile();
 
     controller = module.get<UserController>(UserController);
   });
 
   it('should can say hello', async () => {
-    const response = await controller.sayHello('Ariq', 'Aziz');
-    expect(response).toBe('Hello Ariq Aziz');
+    const response = await controller.sayHello('Ariq');
+    expect(response).toBe('Hello Ariq');
   });
 
   it('should can view template', async () => {
